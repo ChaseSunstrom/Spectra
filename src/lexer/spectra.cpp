@@ -3,15 +3,15 @@
 //
 
 #include <iostream>
-#include <memory>
 #include <string>
 
 #include "spectra.hpp"
+#include "scanner.hpp"
 
 namespace lex {
-    Spectra::Spectra(bool errored, std::unique_ptr<Scanner> scanner) {
+    Spectra::Spectra(bool errored, Scanner* scanner) {
         this->errored = errored;
-        this->scanner = std::move(scanner);
+        this->scanner = scanner;
     }
 
     Spectra::~Spectra() {

@@ -96,8 +96,7 @@ namespace lex {
 
     class Token {
     public:
-        Token();
-        Token(TokenType type, std::string lexeme, uint64_t line, void* value);
+        Token(TokenType type, std::string lexeme, uint64_t line, void* literal);
         ~Token();
     private:
         TokenType token_type;

@@ -13,14 +13,15 @@ namespace lex {
     void run_files(const std::vector<std::string>& files) {
         std::ifstream file;
         for (const std::string& file_path : files) {
-            std::cout << file_path << std::endl;
+            std::cout << "Running file: " << file_path << std::endl;
             file.open(file_path);
             if (file.is_open()) {
                 std::string line;
                 std::string contents;
                 while (getline(file, line)) {
-                    contents += line;
+                    contents += line + "\n";
                 }
+                std::cout << contents << std::endl;
                 file.close();
             }
         }

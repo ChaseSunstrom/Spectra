@@ -12,17 +12,17 @@
 #include "token.hpp"
 
 namespace lex {
-     class Scanner {
+    class Scanner {
     public:
-        Scanner();
+        Scanner(std::string file_source, std::vector<Token> tokens);
         ~Scanner();
     private:
-        std::string file_souce;
-        std::vector<Token> tokens;
-        std::map<std::string, TokenType> keywords;
-        uint64_t current;
-        uint64_t line;
-        uint64_t start;
+        std::string _file_source;
+        std::vector<Token> _tokens;
+        std::map<std::string, TokenType> _keywords;
+        uint64_t _current;
+        uint64_t _line;
+        uint64_t _start;
     };
 }
 

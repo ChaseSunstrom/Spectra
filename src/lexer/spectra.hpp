@@ -14,14 +14,14 @@
 namespace lex {
     class Spectra {
     public:
-        Spectra(bool errored, std::unique_ptr<Scanner> scanner);
+        Spectra(bool errored, Scanner* scanner);
         ~Spectra();
         void run();
         void report(uint64_t line, std::string position, std::string message);
         void error(uint64_t line, std::string message);
     private:
         bool errored;
-        std::unique_ptr<Scanner> scanner;
+        Scanner* scanner;
     };
 }
 
