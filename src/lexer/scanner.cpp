@@ -267,22 +267,6 @@ namespace lex {
         return true;
     }
 
-    static inline std::string &ltrim(std::string &s) {
-        s.erase(s.begin(),std::find_if(s.begin(), s.end(),
-                                        std::not_fn(std::ptr_fun<int, int>(std::isspace))));
-        return s;
-    }
-
-    static inline std::string &rtrim(std::string &s) {
-        s.erase(std::find_if(s.rbegin(), s.rend(),
-                             std::not_fn(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
-        return s;
-    }
-
-    static inline std::string &trim(std::string &s) {
-        return ltrim(rtrim(s));
-    }
-
     //very unsafe lmao
     void scanner::identifier() {
         while (this->is_alpha_or_num(this->peek())) {
@@ -293,7 +277,6 @@ namespace lex {
         }
         this->_file_source.insert(this->_current, " ");
         std::string source = this->_file_source.substr(this->_start, this->_current);
-        source = trim(source);
         char* tok = strtok(source.data(), " ");
         token_type type;
         if (this->_keywords.find(tok) == this->_keywords.end()) {
@@ -326,7 +309,6 @@ namespace lex {
         this->iterate();
 
         this->_file_source.insert(this->_current, " ");
-        value = trim(value);
         this->add_token(token_type::STRING, new token_data(value_type::STRING, value));
     }
 
@@ -342,7 +324,6 @@ namespace lex {
         }
 
         std::string num = this->_file_source.substr(this->_start, this->_current);
-        num = trim(num);
         value_type num_type;
 
         if (num.find('.') != std::string::npos) {
