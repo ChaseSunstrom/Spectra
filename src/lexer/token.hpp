@@ -98,6 +98,11 @@ namespace lex {
     public:
         Token(TokenType type, std::string lexeme, uint64_t line, void* literal);
         ~Token();
+        TokenType get_type();
+        template <typename T> 
+        T get_literal() {
+            return *(T*)this->literal;
+        }
     private:
         TokenType token_type;
         std::string lexeme;
