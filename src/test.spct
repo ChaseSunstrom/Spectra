@@ -1,1 +1,1 @@
-fn void(int 2, string "hi")
+fn void(none 2, none "hi");

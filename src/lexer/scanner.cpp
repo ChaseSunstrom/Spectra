@@ -10,6 +10,7 @@
 #include <cctype>
 #include <chrono>
 #include <iostream>
+#include <string.h>
 
 #include "token.hpp"
 #include "scanner.hpp"
@@ -282,20 +283,23 @@ namespace lex {
         return ltrim(rtrim(s));
     }
 
+    //very unsafe lmao
     void scanner::identifier() {
         while (this->is_alpha_or_num(this->peek())) {
+            if (this->peek() == ' ') {
+                break;
+            }
             this->iterate();
         }
         this->_file_source.insert(this->_current, " ");
         std::string source = this->_file_source.substr(this->_start, this->_current);
         source = trim(source);
+        char* tok = strtok(source.data(), " ");
         token_type type;
-        for (const auto& element : this->_keywords) {
-            if (element.first == source) {
-                type = element.second;
-            }
-        } if (this->_keywords.find(source) == this->_keywords.end()) {
+        if (this->_keywords.find(tok) == this->_keywords.end()) {
             type = token_type::IDENT;
+        } else {
+            type = this->_keywords[tok];
         }
 
         this->add_token(type);
