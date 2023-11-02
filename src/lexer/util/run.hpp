@@ -7,13 +7,12 @@
 
 #include <vector>
 #include <string>
+#include <filesystem>
 
 namespace lex {
-
-    void run_files(const std::vector<std::string>& files);
+    void run_files(const std::vector<std::filesystem::path>& files);
     void run_prompt();
     void run();
-
 }
 
 #endif //SPECTRA_RUN_HPP

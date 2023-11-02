@@ -6,11 +6,11 @@ int main(int argc, char *argv[]) {
     if (argc == 1) {
         lex::run_prompt();
     } else {
-        std::vector<std::string> files;
+        std::vector<std::filesystem::path> files;
 
         for (int i = 1; i < argc; i++) {
-            std::string file_path = std::filesystem::path(argv[i]);
-            files.emplace_back(std::string(file_path));
+            std::filesystem::path file_path = std::filesystem::path(argv[i]);
+            files.emplace_back(file_path);
         }
 
         lex::run_files(files);

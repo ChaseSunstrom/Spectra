@@ -12,18 +12,38 @@
 #include "token.hpp"
 
 namespace lex {
-    class Scanner {
+    class scanner {
     public:
-        Scanner(std::string file_source, std::vector<Token> tokens);
-        ~Scanner();
+        scanner(std::string file_source, std::vector<token> tokens);
+        ~scanner();
+        void add_token(token_type type);
+        void add_token(token_type type, token_data *literal);
+        void scan_token();
+        void identifier();
+        void string();
+        void number();
+        bool is_alpha_or_num(char c);
+        bool is_alpha(char c);
+        bool check(char expected);
+        bool is_num(char c);
+        bool end_of_token();
+        char peek();
+        char peek_next();
+        char iterate();
+        std::vector<token> scan();
+        std::map<std::string, token_type> init_keywords();
+        std::string get_file_source();
     private:
         std::string _file_source;
-        std::vector<Token> _tokens;
-        std::map<std::string, TokenType> _keywords;
+        std::vector<token> _tokens;
+        std::map<std::string, token_type> _keywords;
         uint64_t _current;
         uint64_t _line;
         uint64_t _start;
     };
-}
 
+    static inline std::string &ltrim(std::string &s);
+    static inline std::string &rtrim(std::string &s);
+    static inline std::string &trim(std::string &s);
+}
 #endif //SPECTRA_SCANNER_HPP

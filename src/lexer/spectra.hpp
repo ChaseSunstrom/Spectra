@@ -12,16 +12,17 @@
 #include "scanner.hpp"
 
 namespace lex {
-    class Spectra {
+    class spectra {
     public:
-        Spectra(bool errored, Scanner* scanner);
-        ~Spectra();
+        spectra(bool errored, scanner* scanner);
+        ~spectra();
         void run();
-        void report(uint64_t line, std::string position, std::string message);
-        void error(uint64_t line, std::string message);
+        scanner* get_scanner();
+        static void report(uint64_t line, std::string position, std::string message);
+        static void error(uint64_t line, std::string message);
     private:
-        bool errored;
-        Scanner* scanner;
+        bool _errored;
+        scanner* _scanner;
     };
 }
 
