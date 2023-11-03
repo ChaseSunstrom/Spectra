@@ -1,12 +1,13 @@
 //
 // Created by Chase on 10/31/2023.
 //
+#include "token.hpp"
+
 #include <cstdint>
 #include <string>
 
-#include "token.hpp"
-
 namespace lex {
+ // namespace lex
     token::token(token_type type, std::string lexeme, uint64_t line , token_data* literal) {
         this->_token_type = type;
         this->_lexeme = lexeme;
