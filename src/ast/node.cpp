@@ -2,8 +2,8 @@
 
 namespace ast {
 
-template <typename T>
-bool Node::is() {
-    return typeid(*this) == typeid(T);
-}
+    template<typename T>
+    bool node::is() {
+        return typeid(*this) == typeid(T);
+    }
 }

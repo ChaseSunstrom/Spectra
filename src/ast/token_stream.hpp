@@ -3,27 +3,26 @@
 #define SPECTRA_TOKEN_STREAM_HPP
 
 #include <iostream>
-#include <lexer/token.hpp>
 #include <vector>
+
+#include "../lexer/token.hpp"
+
 namespace ast {
-
-class TokenStream {
-   public:
-    TokenStream(std::vector<lex::Token>* tokens, uint64_t current);
-    ~TokenStream();
-    lex::Token* peek();
-    lex::Token* previous();
-    lex::Token* advance();
-    bool is_at_end();
-    void error(std::string message);
-
-   private:
-    std::vector<lex::Token>* _tokens;
-    uint64_t _current;
-    uint64_t _line;
-    uint64_t _start;
-};
-
+    class token_stream {
+    public:
+        token_stream(std::vector<lex::token> *tokens, uint64_t current);
+        ~token_stream();
+        lex::token *peek();
+        lex::token *previous();
+        lex::token *advance();
+        bool is_at_end();
+        void error(std::string message);
+    private:
+        std::vector<lex::token> *_tokens;
+        uint64_t _current;
+        uint64_t _line;
+        uint64_t _start;
+    };
 }  // namespace ast
 
 #endif  // SPECTRA_SCANNER_HPP

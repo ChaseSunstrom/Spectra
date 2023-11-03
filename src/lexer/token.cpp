@@ -1,10 +1,11 @@
 //
 // Created by Chase on 10/31/2023.
 //
-#include "token.hpp"
-
 #include <cstdint>
 #include <string>
+#include <typeindex>
+
+#include "token.hpp"
 
 namespace lex {
  // namespace lex
@@ -48,6 +49,8 @@ namespace lex {
                 return token_type::STRING;
             case value_type::VOID:
                 return token_type::VOID;
+            case value_type::CUSTOM:
+                return token_type::CUSTOM;
             default:
                 return token_type::NONE;
         }
@@ -215,8 +218,9 @@ namespace lex {
                 return std::to_string(this->bool_value);
             case value_type::STRING:
                 return this->string_value;
-            case value_type::VOID:
-                return "void";
+            case value_type::CUSTOM:
+                //no way this works, if having errors getting user types later, check this line
+                return std::string((char*)this->custom_value);
             default:
                 return "";
 

@@ -9,6 +9,9 @@
 #include <string>
 #include <optional>
 #include <utility>
+#include <any>
+
+#define byte uint8_t
 
 namespace lex {
     enum class token_type{
@@ -43,6 +46,7 @@ namespace lex {
 
         //Literal
         IDENT,
+        CUSTOM,
 
         //Unary
         DECREMENT,
@@ -100,6 +104,7 @@ namespace lex {
         CHAR,
         BOOL,
         VOID,
+        CUSTOM
     };
 
     struct token_data {
@@ -108,7 +113,7 @@ namespace lex {
         token_data(value_type type, char value) : _type(type), char_value(value) {};
         token_data(value_type type, bool value) : _type(type), bool_value(value) {};
         token_data(value_type type, std::string value) : _type(type), string_value(std::move(value)) {};
-        token_data(value_type type, void* value) : _type(type), void_value(value) {};
+        token_data(value_type type, const byte* value) : _type(type), custom_value(value) {};
 
         std::string convert_value_to_string();
 
@@ -119,7 +124,7 @@ namespace lex {
             char char_value;
             bool bool_value;
             std::string string_value;
-            void* void_value;
+            const byte* custom_value;
         };
     };
 

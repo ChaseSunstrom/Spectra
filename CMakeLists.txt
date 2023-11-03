@@ -5,16 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_definitions(-DARGV="${ARGV}")
 
+#dont add header files to this if they have a corresponding source file, the linker will do that automatically
 add_executable(Spectra src/main.cpp
         src/lexer/util/run.cpp
-        src/lexer/util/run.hpp
         src/lexer/scanner.cpp
-        src/lexer/scanner.hpp
         src/lexer/spectra.cpp
-        src/lexer/spectra.hpp
         src/lexer/token.cpp
-        src/lexer/token.hpp
         src/ast/node.cpp
-        src/ast/node.hpp
         src/ast/token_stream.cpp
-        src/ast/token_stream.hpp)
+        src/util/debug.hpp)

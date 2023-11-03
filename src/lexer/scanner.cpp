@@ -15,6 +15,7 @@
 #include "token.hpp"
 #include "scanner.hpp"
 #include "spectra.hpp"
+#include "../util/debug.hpp"
 
 namespace lex {
     scanner::scanner(std::string file_source, std::vector<token> tokens) {
@@ -65,15 +66,14 @@ namespace lex {
 
     std::vector<token> scanner::scan() {
         while (!this->end_of_token()) {
-            //using chrono for time measure
-            auto start = std::chrono::high_resolution_clock::now();
             this->_start = this->_current;
+
+            auto start_time = FUNCTION_TIME_START();
             this->scan_token();
+            auto stop_time = FUNCTION_TIME_END();
+            PRINT_FUNCTION_TIME(start_time, stop_time);
+
             this->_current++;
-            auto stop = std::chrono::high_resolution_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-            //this shit is fast, its 10x faster than my shitty rust code lmao
-            std::cout << duration.count() << std::endl;
         }
 
         token _token = token(token_type::ENDOF, std::string(""), this->_line, nullptr);
@@ -338,6 +338,14 @@ namespace lex {
             this->add_token(token::convert_value_to_type(num_type), int_data);
         }
     }
+
+    bool scanner::is_custom(char c) {}
+
+    bool scanner::is_bool(char c) {}
+
+    void scanner::boolean() {}
+
+    void scanner::custom() {}
 
     std::string scanner::get_file_source() {
         return this->_file_source;

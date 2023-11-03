@@ -1,38 +1,39 @@
 #include "token_stream.hpp"
 
+#include "../util/debug.hpp"
+
 namespace ast {
 
-TokenStream::TokenStream(std::vector<lex::Token>* tokens, uint64_t current) {
-    this->_tokens = tokens;
-    this->_current = current;
-    this->_line = 0;
-}
-TokenStream::~TokenStream() {
-}
-
-lex::Token* TokenStream::peek() {
-    return &_tokens->at(_current);
-}
-
-lex::Token* TokenStream::previous() {
-    return &_tokens->at(_current - 1);
-}
-
-lex::Token* TokenStream::advance() {
-    _current++;
-    if (peek()->get_type() == lex::TokenType::EOL) {
-        _line++;
+    token_stream::token_stream(std::vector<lex::token> *tokens, uint64_t current) {
+        this->_tokens = tokens;
+        this->_current = current;
+        this->_line = 0;
     }
-    return &_tokens->at(_current);
-}
 
-bool TokenStream::is_at_end() {
-    return peek()->get_type() == lex::TokenType::ENDOF;
-}
+    token_stream::~token_stream() {
+    }
 
-void TokenStream::error(std::string message) {
-    std::cout << "[line " << _line << "] Error" << message << std::endl;
-    throw std::exception();
-}
+    lex::token *token_stream::peek() {
+        return &_tokens->at(_current);
+    }
 
+    lex::token *token_stream::previous() {
+        return &_tokens->at(_current - 1);
+    }
+
+    lex::token *token_stream::advance() {
+        _current++;
+        if (peek()->get_type() == lex::token_type::EOL) {
+            _line++;
+        }
+        return &_tokens->at(_current);
+    }
+
+    bool token_stream::is_at_end() {
+        return peek()->get_type() == lex::token_type::ENDOF;
+    }
+
+    void token_stream::error(std::string message) {
+        REPORT_ERROR(this->_line, message);
+    }
 }  // namespace ast

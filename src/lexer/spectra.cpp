@@ -7,6 +7,8 @@
 
 #include "spectra.hpp"
 #include "scanner.hpp"
+#include "../util/debug.hpp"
+
 
 namespace lex {
     spectra::spectra(bool errored, scanner* scanner) {
@@ -20,19 +22,15 @@ namespace lex {
     void spectra::run() {
         std::vector<token> token_list = this->_scanner->scan();
         for (token _token : token_list) {
-            std::cout << "Type: " << token::convert_type_to_string(_token.get_type()) << std::endl;
+            DEBUG_PRINT("Type: " << token::convert_type_to_string(_token.get_type()));
             if (_token.get_literal() != nullptr) {
-                std::cout << "Literal: " << _token.get_literal()->convert_value_to_string() << std::endl;
+                DEBUG_PRINT("Literal: " << _token.get_literal()->convert_value_to_string());
             }
         }
     }
 
     void spectra::error(uint64_t line, std::string message) {
-        spectra::report(line, "", message);
-    }
-
-    void spectra::report(uint64_t line, std::string position, std::string message) {
-        std::cout << "[LINE " << line << "] Error: " << position << " " << message << std::endl;
+        REPORT_ERROR(line, message);
     }
 
     scanner* spectra::get_scanner() {
