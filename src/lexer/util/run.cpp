@@ -1,18 +1,21 @@
-//
+//6
 // Created by Chase on 10/31/2023.
 //
 
-#include<vector>
+#include <vector>
 #include <string>
-#include<iostream>
+#include <iostream>
 #include <fstream>
+#include <filesystem>
 
 #include "run.hpp"
+#include "../spectra.hpp"
+#include "../scanner.hpp"
 
 namespace lex {
-    void run_files(const std::vector<std::string>& files) {
+    void run_files(const std::vector<std::filesystem::path>& files) {
         std::ifstream file;
-        for (const std::string& file_path : files) {
+        for (const std::filesystem::path& file_path : files) {
             std::cout << "Running file: " << file_path << std::endl;
             file.open(file_path);
             if (file.is_open()) {
@@ -21,25 +24,26 @@ namespace lex {
                 while (getline(file, line)) {
                     contents += line + "\n";
                 }
-                std::cout << contents << std::endl;
                 file.close();
+                spectra* _spectra = new spectra(false, new scanner(contents, std::vector<token>()));
+                _spectra->run();
+                std::cout << _spectra->get_scanner()->get_file_source() << std::endl;
+                delete _spectra;
             }
         }
     }
 
     void run_prompt() {
         std::string input;
-
         while (true) {
             std::cout << "> ";
             std::getline(std::cin, input);
-
             if (input.empty()) {
                 break;
             }
-
-
+            spectra* _spectra = new spectra(false, new scanner(input, std::vector<token>()));
+            _spectra->run();
+            delete _spectra;
         }
     }
-
 }
