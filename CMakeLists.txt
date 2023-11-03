@@ -11,6 +11,8 @@ add_executable(Spectra src/main.cpp
         src/lexer/scanner.cpp
         src/lexer/spectra.cpp
         src/lexer/token.cpp
-        src/ast/node.cpp
-        src/ast/token_stream.cpp
-        src/util/debug.hpp)
+        src/util/debug.hpp
+        src/ast/expression.cpp
+        src/ast/expression.hpp
+        src/ast/visitor.cpp
+        src/ast/visitor.hpp)
