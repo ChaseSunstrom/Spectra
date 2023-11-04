@@ -53,6 +53,13 @@
     "ctime": "cpp",
     "ratio": "cpp",
     "iomanip": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "any": "cpp",
+    "charconv": "cpp",
+    "chrono": "cpp",
+    "format": "cpp",
+    "span": "cpp",
+    "typeindex": "cpp",
+    "variant": "cpp"
   }
 }

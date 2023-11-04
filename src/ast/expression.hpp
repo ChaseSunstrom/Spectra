@@ -10,59 +10,63 @@
 #include "../lexer/token.hpp"
 
 namespace ast {
-    class expression {
-    public:
-        template <typename T>
-        T accept();
-    };
+class expression {
+   public:
+    template <typename T>
+    T accept();
+};
 
-    class binary_expression : public expression {
-    public:
-        binary_expression(std::unique_ptr<expression> left, std::unique_ptr<lex::token> operator_, std::unique_ptr<expression> right);
-        template <typename T>
-        T visit_binary_expression();
-        template<typename T>
-        T accept();
-    private:
-        std::unique_ptr<expression> _left;
-        std::unique_ptr<expression> _right;
-        std::unique_ptr<lex::token> _operator;
-    };
+class binary_expression : public expression {
+   public:
+    binary_expression(std::unique_ptr<expression> left, std::unique_ptr<lex::token> operator_, std::unique_ptr<expression> right);
+    template <typename T>
+    T accept();
+    template <typename T>
+    T visit_binary_expression();
 
-    class unary_expression : public expression {
-    public:
-        unary_expression(lex::token operator_, std::unique_ptr<expression> right);
-        template<typename T>
-        T visit_unary_expression();
-        template<typename T>
-        T accept();
-    private:
-        std::unique_ptr<expression> _right;
-        lex::token _operator;
-    };
+   private:
+    std::unique_ptr<expression> _left;
+    std::unique_ptr<expression> _right;
+    std::unique_ptr<lex::token> _operator;
+};
 
-    class grouping_expression : public expression {
-    public:
-        grouping_expression(std::unique_ptr<expression> expression);
-        template<typename T>
-        T visit_grouping_expression();
-        template<typename T>
-        T accept();
-    private:
-        std::unique_ptr<expression> _expression;
-    };
+class unary_expression : public expression {
+   public:
+    unary_expression(lex::token operator_, std::unique_ptr<expression> right);
+    template <typename T>
+    T accept();
+    template <typename T>
+    T visit_unary_expression();
 
-    template<typename T>
-    class literal_expression : public expression {
-    public:
-        literal_expression(T value);
-        T visit_literal_expression();
-        T accept();
-    private:
-        T _value;
-    };
+   private:
+    std::unique_ptr<expression> _right;
+    lex::token _operator;
+};
 
-    void parenthesize(std::unique_ptr<expression> expression);
-} // ast
+class grouping_expression : public expression {
+   public:
+    grouping_expression(std::unique_ptr<expression> expression);
+    template <typename T>
+    T accept();
+    template <typename T>
+    T visit_grouping_expression();
 
-#endif //SPECTRA_EXPRESSION_HPP
+   private:
+    std::unique_ptr<expression> _expression;
+};
+
+template <typename T>
+class literal_expression : public expression {
+   public:
+    literal_expression(T value);
+    T accept();
+    T visit_literal_expression();
+
+   private:
+    T _value;
+};
+
+void parenthesize(std::unique_ptr<expression> expression);
+}  // namespace ast
+
+#endif  // SPECTRA_EXPRESSION_HPP
