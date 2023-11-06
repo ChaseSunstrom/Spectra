@@ -6,67 +6,76 @@
 #define SPECTRA_EXPRESSION_HPP
 
 #include <memory>
+#include <vector>
+#include <string>
 
 #include "../lexer/token.hpp"
 
 namespace ast {
-class expression {
-   public:
-    template <typename T>
-    T accept();
-};
+    class expression {
+    public:
+        expression() = default;
+        virtual std::string accept() = 0;
+    };
 
-class binary_expression : public expression {
-   public:
-    binary_expression(std::unique_ptr<expression> left, std::unique_ptr<lex::token> operator_, std::unique_ptr<expression> right);
-    template <typename T>
-    T accept();
-    template <typename T>
-    T visit_binary_expression();
+    class binary_expression : public expression {
+    public:
+        binary_expression(std::shared_ptr<expression> left, std::shared_ptr<lex::token> operator_,
+                          std::shared_ptr<expression> right);
 
-   private:
-    std::unique_ptr<expression> _left;
-    std::unique_ptr<expression> _right;
-    std::unique_ptr<lex::token> _operator;
-};
+        std::string accept() override;
 
-class unary_expression : public expression {
-   public:
-    unary_expression(lex::token operator_, std::unique_ptr<expression> right);
-    template <typename T>
-    T accept();
-    template <typename T>
-    T visit_unary_expression();
+        std::string visit_binary_expression();
 
-   private:
-    std::unique_ptr<expression> _right;
-    lex::token _operator;
-};
+    private:
+        std::shared_ptr<expression> _left;
+        std::shared_ptr<expression> _right;
+        std::shared_ptr<lex::token> _operator;
+    };
 
-class grouping_expression : public expression {
-   public:
-    grouping_expression(std::unique_ptr<expression> expression);
-    template <typename T>
-    T accept();
-    template <typename T>
-    T visit_grouping_expression();
+    class unary_expression : public expression {
+    public:
+        unary_expression(std::shared_ptr<lex::token> operator_, std::shared_ptr<expression> right);
 
-   private:
-    std::unique_ptr<expression> _expression;
-};
+        std::string accept() override;
 
-template <typename T>
-class literal_expression : public expression {
-   public:
-    literal_expression(T value);
-    T accept();
-    T visit_literal_expression();
+        std::string visit_unary_expression();
 
-   private:
-    T _value;
-};
+    private:
+        std::shared_ptr<expression> _right;
+        std::shared_ptr<lex::token> _operator;
+    };
 
-void parenthesize(std::unique_ptr<expression> expression);
+    class grouping_expression : public expression {
+    public:
+        explicit grouping_expression(std::shared_ptr<expression> expression);
+
+        std::string accept() override;
+
+        std::string visit_grouping_expression();
+
+    private:
+        std::shared_ptr<expression> _expression;
+    };
+
+    template<typename T>
+    class literal_expression : public expression {
+    public:
+        explicit literal_expression(T *value) : _value(value) {};
+
+        std::string accept() override;
+
+        std::string visit_literal_expression();
+
+    private:
+        T *_value;
+    };
+
+    std::string parenthesize(const std::string &name, const std::vector<std::shared_ptr<expression>>& expressions);
+
+    void print_expression(expression *expression);
+
+
 }  // namespace ast
 
 #endif  // SPECTRA_EXPRESSION_HPP

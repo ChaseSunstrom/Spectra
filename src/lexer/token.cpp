@@ -1,22 +1,17 @@
 //
 // Created by Chase on 10/31/2023.
 //
-#include <cstdint>
 #include <string>
-#include <typeindex>
 
 #include "token.hpp"
 
 namespace lex {
- // namespace lex
-    token::token(token_type type, std::string lexeme, uint64_t line , token_data* literal) {
+    // namespace lex
+    token::token(token_type type, std::string lexeme, uint64_t line, token_data *literal) {
         this->_token_type = type;
-        this->_lexeme = lexeme;
+        this->_lexeme = std::move(lexeme);
         this->_literal = literal;
         this->line = line;
-    }
-
-    token::~token() {
     }
 
     token_type token::get_type() {
@@ -27,12 +22,8 @@ namespace lex {
         return this->_lexeme;
     }
 
-    token_data* token::get_literal() {
+    token_data *token::get_literal() {
         return this->_literal;
-    }
-
-    uint64_t token::get_line() {
-        return this->line;
     }
 
     token_type token::convert_value_to_type(value_type type) {
@@ -53,25 +44,6 @@ namespace lex {
                 return token_type::CUSTOM;
             default:
                 return token_type::NONE;
-        }
-    }
-
-    value_type token::convert_type_to_value() {
-        switch (this->_token_type) {
-            case token_type::INT:
-                return value_type::INT;
-            case token_type::FLOAT:
-                return value_type::FLOAT;
-            case token_type::CHAR:
-                return value_type::CHAR;
-            case token_type::BOOL:
-                return value_type::BOOL;
-            case token_type::STRING:
-                return value_type::STRING;
-            case token_type::VOID:
-                return value_type::VOID;
-            default:
-                return value_type::NONE;
         }
     }
 
@@ -199,10 +171,14 @@ namespace lex {
                 return "VOID";
             case token_type::NONE:
                 return "NONE";
+            case token_type::CUSTOM:
+                return "CUSTOM";
             case token_type::EOL:
                 return "EOL";
             case token_type::ENDOF:
                 return "ENDOF";
+            default:
+                return "";
         }
     }
 
@@ -220,7 +196,7 @@ namespace lex {
                 return this->string_value;
             case value_type::CUSTOM:
                 //no way this works, if having errors getting user types later, check this line
-                return std::string((char*)this->custom_value);
+                return (char *)this->custom_value;
             default:
                 return "";
 

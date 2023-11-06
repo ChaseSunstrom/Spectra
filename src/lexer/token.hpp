@@ -131,14 +131,12 @@ namespace lex {
     class token {
     public:
         token(token_type type, std::string lexeme, uint64_t line, token_data *literal);
-        ~token();
+        ~token() = default;
         token_type get_type();
         std::string get_lexeme();
-        uint64_t get_line();
         token_data* get_literal();
         static std::string convert_type_to_string(token_type type);
         static token_type convert_value_to_type(value_type type);
-        value_type convert_type_to_value();
     private:
         token_type _token_type;
         std::string _lexeme;
