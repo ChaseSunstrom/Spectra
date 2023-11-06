@@ -54,22 +54,9 @@ namespace ast {
         });
     }
 
-    template <typename T>
-    std::string literal_expression<T>::accept() {
-        return this->visit_literal_expression();
-    }
-
-    template <typename T>
-    std::string literal_expression<T>::visit_literal_expression() {
-        if (!this->_value) {
-            return "none";
-        }
-        return std::to_string(this->_value);
-    }
-
     std::string parenthesize(const std::string& name, const std::vector<std::shared_ptr<expression>>& expressions) {
         std::string output = "(" + name + " ";
-        for (auto &expression : expressions) {
+        for (const auto& expression : expressions) {
             output += " ";
             output += expression->accept();
         }
