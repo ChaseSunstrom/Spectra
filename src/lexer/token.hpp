@@ -89,6 +89,7 @@ namespace lex {
         CHAR,
         BOOL,
         VOID,
+        DEFAULT,
 
         //EOL
         EOL,

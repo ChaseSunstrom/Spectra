@@ -61,6 +61,7 @@ namespace lex {
         keywords.insert({"space", token_type::SPACE});
         keywords.insert({"impl", token_type::IMPL});
         keywords.insert({"fn", token_type::FN});
+        keywords.insert({"default", token_type::DEFAULT});
         return keywords;
     }
 
