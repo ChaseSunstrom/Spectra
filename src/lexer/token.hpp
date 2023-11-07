@@ -135,7 +135,7 @@ namespace lex {
         token_type get_type();
         std::string get_lexeme();
         token_data* get_literal();
-        static std::string convert_type_to_string(token_type type);
+        uint64_t get_line();
         static token_type convert_value_to_type(value_type type);
     private:
         token_type _token_type;

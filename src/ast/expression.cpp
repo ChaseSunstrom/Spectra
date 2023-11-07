@@ -8,6 +8,7 @@
 #include "../util/debug.hpp"
 
 namespace ast {
+
     binary_expression::binary_expression(std::shared_ptr<expression> left, std::shared_ptr<lex::token> operator_,
                                          std::shared_ptr<expression> right) {
         this->_left = std::move(left);
@@ -62,9 +63,5 @@ namespace ast {
         }
         output += " )";
         return output;
-    }
-
-    void print_expression(expression* expression) {
-        std::cout << expression->accept() << std::endl;
     }
 } // ast
