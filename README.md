@@ -40,7 +40,7 @@ Currently there is no way to run Spectra source code, however, what Spectra code
 
 use std::io;
 
-void main () {
+fn void main () {
   my_class foo = my_name_space::my_class::default();
 
   //use "use space (your_namespace)" to not have to declare the namespace of the type/object you are trying to use
@@ -50,7 +50,6 @@ void main () {
 }
 
 space my_name_space {
-
   class my_class {
     priv int _my_int;
     priv string _my_string;
