@@ -62,6 +62,7 @@ namespace lex {
         keywords.insert({"impl", token_type::IMPL});
         keywords.insert({"fn", token_type::FN});
         keywords.insert({"default", token_type::DEFAULT});
+        keywords.insert({"abstract", token_type::ABSTRACT});
         return keywords;
     }
 

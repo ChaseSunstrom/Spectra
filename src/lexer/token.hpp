@@ -90,6 +90,7 @@ namespace lex {
         BOOL,
         VOID,
         DEFAULT,
+        ABSTRACT,
 
         //EOL
         EOL,
