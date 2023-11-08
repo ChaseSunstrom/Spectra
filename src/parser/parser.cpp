@@ -16,10 +16,12 @@ namespace parse {
     }
 
     ast::expression *parser::expression() {
+        // ! Hear int is being parsted as equality somthing like x=1 wont segfault  
         return this->equality();
     }
 
     ast::expression *parser::equality() {
+        // ! Throwing off by one
         ast::expression *expression;
         while (this->match(std::vector<lex::token_type>{lex::token_type::BANG_EQUAL, lex::token_type::EQUAL})) {
             expression = new ast::binary_expression(

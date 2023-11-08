@@ -25,12 +25,14 @@ namespace lex {
         std::vector<token> token_list = this->_scanner->scan();
         parse::parser* parser = new parse::parser(token_list);
         ast::expression* expression = parser->parse();
-
+        DEBUG_PRINT(parser)
         if (this->_errored) {
             return;
         }
         if (expression) {
             //segfault here
+            
+            expression->accept();
             DEBUG_PRINT(expression->accept())
         }
 

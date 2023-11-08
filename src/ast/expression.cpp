@@ -17,6 +17,8 @@ namespace ast {
     }
 
     std::string binary_expression::accept() {
+        DEBUG_PRINT("Visiting binary expression");
+
         return this->visit_binary_expression();
     }
 
@@ -32,6 +34,7 @@ namespace ast {
     }
 
     std::string unary_expression::accept() {
+        DEBUG_PRINT("Visiting unary expression");
         return this->visit_unary_expression();
     }
 
@@ -46,6 +49,7 @@ namespace ast {
     }
 
     std::string grouping_expression::accept() {
+        DEBUG_PRINT("Visiting grouping expression");
         return this->visit_grouping_expression();
     }
 

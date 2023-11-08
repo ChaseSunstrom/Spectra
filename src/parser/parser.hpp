@@ -21,6 +21,7 @@ namespace parse {
                                                                          _message(std::move(message)) {
                                                                             REPORT_ERROR(token.get_line(), message)
                                                                          }
+
         const char *what() const noexcept override {
             return _message.c_str();
         }
