@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "scanner.hpp"
+#include "../interpreter/interpreter.hpp"
 
 namespace lex {
     class spectra {
@@ -20,9 +21,12 @@ namespace lex {
         scanner* get_scanner();
         static void report(uint64_t line, std::string position, std::string message);
         static void error(uint64_t line, std::string message);
+        inline static void runtime_error() {_runtime_errored = true; }
     private:
-        bool _errored;
+        static bool _errored;
+        static bool _runtime_errored;
         scanner* _scanner;
+        ev::interpreter* _interpreter;
     };
 }
 

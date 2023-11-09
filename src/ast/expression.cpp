@@ -44,6 +44,14 @@ namespace ast {
         });
     }
 
+    std::shared_ptr<expression> unary_expression::get_right() {
+        return _right;
+    }
+
+    std::shared_ptr<lex::token> unary_expression::get_operator() {
+        return _operator;
+    }
+
     grouping_expression::grouping_expression(std::shared_ptr<expression> expression) {
         this->_expression = std::move(expression);
     }

@@ -18,7 +18,7 @@ namespace parse {
         std::string _message;
     public:
         explicit parse_error(lex::token token, std::string message) : runtime_error(message),
-                                                                         _message(std::move(message)) {
+                                                                         _message(message) {
                                                                             REPORT_ERROR(token.get_line(), message)
                                                                          }
 

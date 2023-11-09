@@ -15,4 +15,6 @@ add_executable(Spectra src/main.cpp
         src/ast/expression.cpp
         src/parser/parser.cpp
         src/parser/parser.hpp
+        src/interpreter/interpreter.cpp
+        src/interpreter/interpreter.hpp
 )

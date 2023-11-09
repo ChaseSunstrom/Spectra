@@ -218,7 +218,7 @@ namespace lex {
         }
     }
 
-    void scanner::add_token(token_type type) {
+    inline void scanner::add_token(token_type type) {
         this->add_token(type, nullptr);
     }
 
@@ -233,27 +233,27 @@ namespace lex {
         return this->_file_source[this->_current];
     }
 
-    char scanner::peek() {
+    inline char scanner::peek() {
         return this->_file_source[this->_current];
     }
 
-    char scanner::peek_next() {
+    inline char scanner::peek_next() {
         return this->_file_source[this->_current];
     }
 
-    bool scanner::end_of_token() {
+    inline bool scanner::end_of_token() {
         return this->_current >= this->_file_source.size();
     }
 
-    bool scanner::is_num(char c) {
+    inline bool scanner::is_num(char c) {
         return c >= '0' && c <= '9';
     }
 
-    bool scanner::is_alpha(char c) {
+    inline bool scanner::is_alpha(char c) {
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
     }
 
-    bool scanner::is_alpha_or_num(char c) {
+    inline bool scanner::is_alpha_or_num(char c) {
         return this->is_alpha(c) || this->is_num(c);
     }
 

@@ -5,9 +5,7 @@
 #ifndef SPECTRA_DEBUG_HPP
 #define SPECTRA_DEBUG_HPP
 
-#define REPORT_ERROR(line, message)                                       \
-    std::cout << "[LINE " << line << "] Error: " << message << std::endl; \
-    
+#define REPORT_ERROR(line, message) std::cout << "[LINE " << line << "] Error: " << message << std::endl;
 
 #define DEBUG
 #ifdef DEBUG

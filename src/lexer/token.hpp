@@ -144,6 +144,8 @@ namespace lex {
         uint64_t line;
         token_data* _literal;
     };
+
+    std::string convert_type_to_string(token_type type);
 }
 
 
