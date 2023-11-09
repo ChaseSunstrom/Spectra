@@ -1,1 +1,7 @@
-int x = 0;
+pub fn int hi (int x, int y, string z) {
+    int u = 2;
+    float h = 3.0;
+    string w = "hi";
+
+    return u;
+}

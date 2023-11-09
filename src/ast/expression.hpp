@@ -16,6 +16,7 @@ namespace ast {
     class expression {
     public:
         expression() = default;
+        ~expression() = default;
 
         virtual std::string accept() = 0;
     };
@@ -68,7 +69,10 @@ namespace ast {
         std::string accept() override { return this->visit_literal_expression(); }
 
         std::string visit_literal_expression() {
-            if (strcmp(typeid(_value).name(), "token_data")) {
+            if (!this->_value) {
+                return "none";
+            }
+            if (strcmp(typeid(_value).name(), "token_data") && this->_value) {
                 return this->visit_literal_expression_impl((lex::token_data*)_value);
             }
             return visit_literal_expression_impl();

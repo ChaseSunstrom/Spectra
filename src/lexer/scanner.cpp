@@ -4,16 +4,14 @@
 
 #include "scanner.hpp"
 
-#include <string.h>
-
 #include <algorithm>
 #include <cctype>
 #include <chrono>
-// #include <functional>
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
+#include <cstring>
 
 #include "../util/debug.hpp"
 #include "spectra.hpp"
@@ -67,7 +65,7 @@ namespace lex {
     }
 
     std::vector<token> scanner::scan() {
-        auto start_one = FUNCTION_TIME_START()
+
         while (!this->end_of_token()) {
             this->_start = this->_current;
 
@@ -78,8 +76,6 @@ namespace lex {
 
             this->_current++;
         }
-        auto end_one = FUNCTION_TIME_END()
-        PRINT_FUNCTION_TIME(start_one, end_one)
 
         token _token = token(token_type::ENDOF, std::string(""), this->_line, nullptr);
         this->_tokens.emplace_back(_token);

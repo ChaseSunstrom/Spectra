@@ -47,7 +47,7 @@ namespace parse {
         lex::token previous();
         lex::token advance();
         lex::token consume(lex::token_type type, std::string message);
-        void syncronize();
+        void synchronize();
         parse_error error(lex::token token, std::string message);
     private:
         std::vector<lex::token> _tokens;

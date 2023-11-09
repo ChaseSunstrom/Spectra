@@ -22,22 +22,23 @@ namespace lex {
     }
 
     void spectra::run() {
+        auto start = FUNCTION_TIME_START()
         std::vector<token> token_list = this->_scanner->scan();
         parse::parser* parser = new parse::parser(token_list);
         ast::expression* expression = parser->parse();
+        auto end = FUNCTION_TIME_END()
+        PRINT_FUNCTION_TIME(start, end)
         DEBUG_PRINT(parser)
         if (this->_errored) {
             return;
         }
         if (expression) {
             //segfault here
-            
-            expression->accept();
-            DEBUG_PRINT(expression->accept())
+            std::string accepted = expression->accept();
+            DEBUG_PRINT(accepted)
         }
 
         delete parser;
-        delete expression;
     }
 
     void spectra::error(uint64_t line, std::string message) {

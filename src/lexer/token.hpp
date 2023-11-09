@@ -5,11 +5,10 @@
 #ifndef SPECTRA_TOKEN_HPP
 #define SPECTRA_TOKEN_HPP
 
-#include <cstdint>
 #include <string>
 #include <optional>
 #include <utility>
-#include <any>
+#include <cstdint>
 
 #define byte uint8_t
 
