@@ -19,9 +19,8 @@ namespace lex {
         ~spectra();
         void run();
         scanner* get_scanner();
-        static void report(uint64_t line, std::string position, std::string message);
         static void error(uint64_t line, std::string message);
-        inline static void runtime_error() {_runtime_errored = true; }
+        static void runtime_error() {_runtime_errored = true; }
     private:
         static bool _errored;
         static bool _runtime_errored;

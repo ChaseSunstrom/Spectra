@@ -1,8 +1,9 @@
 #include <filesystem>
 
 #include "lexer/util/run.hpp"
+#include "tests/unit_tests.hpp"
 
-int main(int argc, char *argv[]) {
+void language_main(int argc, char *argv[]) {
     if (argc == 1) {
         lex::run_prompt();
     } else {
@@ -15,6 +16,15 @@ int main(int argc, char *argv[]) {
 
         lex::run_files(files);
     }
-
-    return 0;
 }
+
+
+int main(int argc, char *argv[]) {
+#define DEBUG
+#ifndef DEBUG
+    language_main(argc, argv);
+#else
+    tests::test_main();
+#endif
+}
+
