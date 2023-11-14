@@ -28,7 +28,7 @@ namespace lex {
                 spectra* _spectra = new spectra(new scanner(contents, std::vector<token>()));
                 _spectra->run();
                 std::cout << _spectra->get_scanner()->get_file_source() << std::endl;
-                delete _spectra;
+                _spectra->~spectra();
             }
         }
     }

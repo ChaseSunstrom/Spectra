@@ -324,12 +324,13 @@ namespace lex {
             }
         }
 
+        this->_file_source.insert(this->_current, " ");
         std::string num = this->_file_source.substr(this->_start, this->_current);
         value_type num_type;
 
         if (num.find('.') != std::string::npos) {
             num_type = value_type::FLOAT;
-            float num_float = std::stof(num);
+            double num_float = std::stod(num);
             token_data *float_data = new token_data(num_type, num_float);
             this->add_token(token::convert_value_to_type(num_type), float_data);
         } else {

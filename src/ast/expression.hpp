@@ -16,6 +16,7 @@ namespace ast {
     class expression {
     public:
         expression() = default;
+
         ~expression() = default;
 
         virtual std::string accept() = 0;
@@ -31,7 +32,9 @@ namespace ast {
         std::string visit_binary_expression();
 
         inline std::shared_ptr<expression> get_left() { return _left; }
+
         inline std::shared_ptr<expression> get_right() { return _right; }
+
         inline std::shared_ptr<lex::token> get_operator() { return _operator; }
 
     private:
@@ -74,30 +77,29 @@ namespace ast {
     template<typename T>
     class literal_expression : public expression {
     public:
-        explicit literal_expression(T* value) : _value(value) {};
+        explicit literal_expression(T *value) : _value(value) {};
 
-        std::string accept()  { return this->visit_literal_expression(); }
+        std::string accept() { return this->visit_literal_expression(); }
 
         std::string visit_literal_expression() {
-            if (strcmp(typeid(_value).name(), "token_data") && this->_value) {
-                return this->visit_literal_expression_impl((lex::token_data*)_value);
-            }
-            return visit_literal_expression_impl();
+            if (strcmp(typeid(_value).name(), "token_data") && this->_value)
+                return this->visit_literal_expression_impl((lex::token_data *) _value);
+            else if (this->_value == nullptr)
+                return "none";
+            else
+                return visit_literal_expression_impl();
         }
 
         inline T *get_value() { return _value; }
 
     private:
         std::string visit_literal_expression_impl() {
-            if (strcmp(typeid(_value).name(), "bool") && this->_value) {
-                return "true";
-            } else if (strcmp(typeid(_value).name(), "bool") && !this->_value) {
-                return "false";
-            } else {
-                return "none";
-            }
+            return typeid(this->_value).name();
         };
-        inline std::string visit_literal_expression_impl(lex::token_data* data) { return data->convert_value_to_string(); }
+
+        inline std::string
+        visit_literal_expression_impl(lex::token_data *data) { return data->convert_value_to_string(); }
+
     private:
         T *_value;
     };

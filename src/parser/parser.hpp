@@ -29,7 +29,7 @@ namespace parse {
     class parser {
     public:
         explicit parser(std::vector<lex::token> tokens);
-
+        ~parser();
         ast::expression* parse();
 
     private:

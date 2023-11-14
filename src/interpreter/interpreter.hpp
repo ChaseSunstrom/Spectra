@@ -38,6 +38,7 @@ namespace inter {
     public:
 
         interpreter() = default;
+        ~interpreter() = default;
 
         template<typename T>
         T visit_literal_expression(ast::literal_expression<T> *expr);

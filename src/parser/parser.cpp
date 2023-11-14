@@ -119,7 +119,7 @@ namespace parse {
     }
 
     ast::expression *parser::primary() {
-        if (this->match(std::vector<lex::token_type>{lex::token_type::INT, lex::token_type::FLOAT})) {
+        if (this->match(std::vector<lex::token_type>{lex::token_type::INT, lex::token_type::FLOAT, lex::token_type::STRING})) {
             return new ast::literal_expression<lex::token_data>(this->previous().get_literal());
         }
         if (this->match(std::vector<lex::token_type>{lex::token_type::FALSE})) {
