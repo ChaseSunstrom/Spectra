@@ -29,6 +29,7 @@ namespace lex {
         SLASH,
         STAR,
         ASSIGN,
+        COLON,
 
         //Comparisons
         BANG,
@@ -50,6 +51,9 @@ namespace lex {
         //Unary
         DECREMENT,
         INCREMENT,
+
+        //Logical
+        DOUBLE_COLON,
 
         //Binary
         ADD_ASSIGN,

@@ -1,3 +1,33 @@
-int x = 1;
-int y = 1;
+//WHY DOES IT RECOGNIZE THIS AS "ENDOF"???
+::
 
+//it recognizes this is a proper expression, however accept does not work properly
+int x = 0;
+
+//it only recognizes this as a proper expression if there is a proper expression before it
+(x == y)
+
+use std::io;
+
+//too much code causes a segfault???
+//ONLY IN DEBUG MODE ASWELL
+//probably an issue with debug symbols in cmake
+fn void main () {
+  my_class foo = my_name_space::my_class::default();
+
+  use space my_namespace;
+  my_class bar = my_class::default();
+}
+
+space my_name_space {
+  class my_class {
+    priv int _my_int;
+    priv string _my_string;
+
+    pub fn default;
+
+    pub fn void my_function() {
+      io::print("Hello, World!");
+    }
+  }
+}

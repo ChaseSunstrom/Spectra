@@ -140,6 +140,13 @@ namespace lex {
                     this->add_token(token_type::TACK);
                 }
                 break;
+            case ':':
+                if (this->check(':')) {
+                    this->add_token(token_type::DOUBLE_COLON);
+                } else {
+                    this->add_token(token_type::COLON);
+                }
+                break;
             case '"':
                 this->string();
                 break;

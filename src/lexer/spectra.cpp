@@ -32,16 +32,16 @@ namespace lex {
 
         std::vector<token> token_list = this->_scanner->scan();
 
-        for (auto token : token_list) {
+        for (auto token: token_list) {
             DEBUG_PRINT(convert_type_to_string(token.get_type()))
             if (token.get_literal()) {
                 std::cout << token.get_literal()->convert_value_to_string() << std::endl;
             }
         }
 
-        parse::parser* parser = new parse::parser(token_list);
+        parse::parser *parser = new parse::parser(token_list);
         //parser does not make proper expressions, WHY????
-        ast::expression* expression = parser->parse();
+        ast::expression *expression = parser->parse();
 
         DEBUG_PRINT(expression->accept())
 
@@ -52,8 +52,8 @@ namespace lex {
         //    return;
         //}
 
-        inter::interpreter* interpreter = new inter::interpreter();
-        interpreter->interpret<ast::expression*>(expression);
+        inter::interpreter *interpreter = new inter::interpreter();
+        interpreter->interpret<ast::expression *>(expression);
 
         if (_runtime_errored) {
             return;
