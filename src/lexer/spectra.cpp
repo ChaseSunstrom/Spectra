@@ -6,19 +6,21 @@
 #include <string>
 #include <stdexcept>
 
+
+#include "../interpreter/interpreter.hpp"
 #include "spectra.hpp"
 #include "scanner.hpp"
 #include "../util/debug.hpp"
 #include "../ast/expression.hpp"
 #include "../parser/parser.hpp"
-#include "../interpreter/interpreter.hpp"
 
 
 namespace lex {
-    spectra::spectra(bool errored, scanner *scanner) {
-        this->_errored = errored;
+    bool _errored = false;
+    bool _runtime_errored = false;
+
+    spectra::spectra(scanner *scanner) {
         this->_scanner = scanner;
-        this->_interpreter = new ev::interpreter();
     }
 
     spectra::~spectra() {
@@ -39,13 +41,15 @@ namespace lex {
         auto end = FUNCTION_TIME_END()
         PRINT_FUNCTION_TIME(start, end)
 
-        if (this->_errored) {
-            return;
-        }
+        //if (_errored) {
+        //    return;
+        //}
 
-        this->_interpreter->interpret<ast::expression>(expression);
+        inter::interpreter* interpreter = new inter::interpreter();
 
-        if (this->_runtime_errored) {
+        interpreter->interpret<ast::expression*>(expression);
+
+        if (_runtime_errored) {
             return;
         }
 
@@ -55,6 +59,10 @@ namespace lex {
     void spectra::error(uint64_t line, std::string message) {
         REPORT_ERROR(line, message)
         _errored = true;
+    }
+
+    void spectra::runtime_errored() {
+        _runtime_errored = true;
     }
 
     scanner *spectra::get_scanner() {

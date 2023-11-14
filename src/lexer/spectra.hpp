@@ -13,20 +13,22 @@
 #include "../interpreter/interpreter.hpp"
 
 namespace lex {
+
+    extern bool _errored;
+    extern bool _runtime_errored;
+
     class spectra {
     public:
-        spectra(bool errored, scanner* scanner);
+        spectra(scanner* scanner);
         ~spectra();
         void run();
         scanner* get_scanner();
         static void error(uint64_t line, std::string message);
-        static void runtime_error() {_runtime_errored = true; }
+        static void runtime_errored();
     private:
-        static bool _errored;
-        static bool _runtime_errored;
         scanner* _scanner;
-        ev::interpreter* _interpreter;
     };
+
 }
 
 #endif //SPECTRA_SPECTRA_HPP

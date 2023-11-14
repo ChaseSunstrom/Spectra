@@ -18,7 +18,7 @@ namespace ast {
         expression() = default;
         ~expression() = default;
 
-        virtual std::string accept();
+        virtual std::string accept() = 0;
     };
 
     class binary_expression : public expression {
@@ -26,7 +26,7 @@ namespace ast {
         binary_expression(std::shared_ptr<expression> left, std::shared_ptr<lex::token> operator_,
                           std::shared_ptr<expression> right);
 
-        std::string accept() override;
+        std::string accept();
 
         std::string visit_binary_expression();
 
@@ -44,7 +44,7 @@ namespace ast {
     public:
         unary_expression(std::shared_ptr<lex::token> operator_, std::shared_ptr<expression> right);
 
-        std::string accept() override;
+        std::string accept();
 
         std::string visit_unary_expression();
 
@@ -61,7 +61,7 @@ namespace ast {
     public:
         explicit grouping_expression(std::shared_ptr<expression> expression);
 
-        std::string accept() override;
+        std::string accept();
 
         std::string visit_grouping_expression();
 
@@ -76,7 +76,7 @@ namespace ast {
     public:
         explicit literal_expression(T* value) : _value(value) {};
 
-        std::string accept() override { return this->visit_literal_expression(); }
+        std::string accept()  { return this->visit_literal_expression(); }
 
         std::string visit_literal_expression() {
             if (strcmp(typeid(_value).name(), "token_data") && this->_value) {

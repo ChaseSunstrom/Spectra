@@ -25,7 +25,7 @@ namespace lex {
                     contents += line + "\n";
                 }
                 file.close();
-                spectra* _spectra = new spectra(false, new scanner(contents, std::vector<token>()));
+                spectra* _spectra = new spectra(new scanner(contents, std::vector<token>()));
                 _spectra->run();
                 std::cout << _spectra->get_scanner()->get_file_source() << std::endl;
                 delete _spectra;
@@ -41,7 +41,7 @@ namespace lex {
             if (input.empty()) {
                 break;
             }
-            spectra* _spectra = new spectra(false, new scanner(input, std::vector<token>()));
+            spectra* _spectra = new spectra(new scanner(input, std::vector<token>()));
             _spectra->run();
             delete _spectra;
         }

@@ -20,7 +20,7 @@ void language_main(int argc, char *argv[]) {
 
 
 int main(int argc, char *argv[]) {
-#define DEBUG
+//#define DEBUG
 #ifndef DEBUG
     language_main(argc, argv);
 #else

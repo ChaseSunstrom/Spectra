@@ -3,11 +3,12 @@
 //
 #include <cstring>
 
+
+#include "../lexer/spectra.hpp"
 #include "interpreter.hpp"
 #include "../ast/expression.hpp"
-#include "../lexer/spectra.hpp"
 
-namespace ev {
+namespace inter {
     template<typename T>
     T interpreter::visit_literal_expression(ast::literal_expression<T> *expr) {
         return expr->get_value();
@@ -15,7 +16,7 @@ namespace ev {
 
     template<typename T>
     T interpreter::visit_unary_expression(ast::unary_expression *expr) {
-        T right = this->evaluate_expression<ast::expression>(&*expr->get_right());
+        T right = this->evaluate_expression(&*expr->get_right());
         switch (expr->get_operator()->get_type()) {
             case lex::token_type::TACK:
                 this->check_number_operand(expr->get_operator(), &right);
@@ -28,8 +29,8 @@ namespace ev {
 
     template<typename T>
     T interpreter::visit_binary_expression(ast::binary_expression *expr) {
-        T left = this->evaluate_expression<ast::expression>(&*expr->get_left());
-        T right = this->evaluate_expression<ast::expression>(&*expr->get_right());
+        T left = this->evaluate_expression(&*expr->get_left());
+        T right = this->evaluate_expression(&*expr->get_right());
 
         switch (expr->get_operator()->get_type()) {
             case lex::token_type::GREATER_THAN:
@@ -77,11 +78,10 @@ namespace ev {
 
     template<typename T>
     T interpreter::visit_grouping_expression(ast::grouping_expression *expr) {
-        return this->evaluate_expression<ast::expression>(&*expr->get_expression());
+        return this->evaluate_expression(&*expr->get_expression());
     }
 
-    template<typename T>
-    T interpreter::evaluate_expression(ast::expression *expr) {
+     std::string interpreter::evaluate_expression(ast::expression* expr) {
         return expr->accept();
     }
 
@@ -109,7 +109,7 @@ namespace ev {
     }
 
     template <typename T>
-    void check_number_operand(lex::token* op, T* operand) {
+    void interpreter::check_number_operand(lex::token* op, T* operand) {
         if (strcmp(typeid(*operand).name(), "double")||
         strcmp(typeid(*operand).name(), "int")) {
             return;
@@ -118,7 +118,7 @@ namespace ev {
     }
 
     template <typename T>
-    void check_number_operands(lex::token* op, T* left, T* right) {
+    void interpreter::check_number_operands(lex::token* op, T* left, T* right) {
         if ((strcmp(typeid(*left).name(), "double") ||
              strcmp(typeid(*left).name(), "int")) &&
             (strcmp(typeid(*right).name(), "double")||
@@ -127,4 +127,6 @@ namespace ev {
         }
         throw runtime_error(*op, "Operands must be numbers.");
     }
-} // ev
+
+
+} // inter

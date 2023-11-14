@@ -2,6 +2,12 @@
 // Created by Chase on 11/13/2023.
 //
 #include "unit_tests.hpp"
+#include "../parser/parser.hpp"
+#include "../interpreter/interpreter.hpp"
+#include "../lexer/scanner.hpp"
+#include "../lexer/spectra.hpp"
+#include "../lexer/token.hpp"
+#include "../ast/expression.hpp"
 
 namespace tests {
     void test_main() {

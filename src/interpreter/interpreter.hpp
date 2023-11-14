@@ -7,12 +7,12 @@
 
 #include <stdexcept>
 
+#include "../lexer/spectra.hpp"
 #include "../lexer/token.hpp"
 #include "../ast/expression.hpp"
 #include "../util/debug.hpp"
-#include "../lexer/spectra.hpp"
 
-namespace ev {
+namespace inter {
     class runtime_error : public std::runtime_error {
         std::string _message;
         lex::token _token;
@@ -52,17 +52,19 @@ namespace ev {
         T visit_grouping_expression(ast::grouping_expression *expr);
 
         template <typename T>
-        void interpret(ast::expression* expr) {
+        void interpret(ast::expression *expr) {
             try {
-                T value = this->evaluate_expression<ast::expression>(expr);
-                std::cout << make_string<typeof(T)>(&value) << std::endl;
-            } catch (runtime_error e) {
-                lex::spectra::runtime_error();
+                //why does this not work?
+                std::string value = this->evaluate_expression(expr);
+                std::cout << value << std::endl;
+            } catch (runtime_error &e) {
+                //why is this not working?
+
             }
         }
+
     private:
-        template<typename T>
-        T evaluate_expression(ast::expression *expr);
+        std::string evaluate_expression(ast::expression* expr);
 
         template<typename T>
         bool is_true(T *value);
@@ -77,8 +79,10 @@ namespace ev {
         void check_number_operands(lex::token* op, T* left, T* right);
 
         template <typename T>
-        std::string make_string(T *value);
+        std::string make_string(T value) {
+            return std::to_string(value);
+        }
     };
-} // ev
+} // inter
 
 #endif //SPECTRA_INTERPRETER_HPP
